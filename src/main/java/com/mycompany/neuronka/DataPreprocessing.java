@@ -16,6 +16,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -37,30 +38,43 @@ public class DataPreprocessing {
     private static String processedDataFile = "processedData.csv";
     private static List<double[]> oneActivity;
     private static int numberOfSamplesInFrame = 600;
-    private static String cvsSplitBy = "\t";
+    private static String csvSplitBy = "\t";
     
     public static void main(String csvFile, String activity){    
-        /*
+        String line = "";
+        
         // create new perceptron network 
-        NeuralNetwork neuralNetwork = new Perceptron(2,1); 
+        //NeuralNetwork neuralNetwork = new Perceptron(2,1); 
+        MultiLayerPerceptron neuralNetwork = new MultiLayerPerceptron(2, 5, 5, 1);
  
         // create training set 
-        DataSet trainingSet = new DataSet(2,1);
-
-        // add training data to training set (logical OR function) 
-        trainingSet.addRow(new DataSetRow (new double[]{0, 0}, new double[]{0})); 
-        trainingSet.addRow(new DataSetRow (new double[]{0, 1}, new double[]{1})); 
-        trainingSet.addRow(new DataSetRow (new double[]{1, 0}, new double[]{1})); 
-        trainingSet.addRow(new DataSetRow (new double[]{1, 1}, new double[]{1})); 
-        // learn the training set 
-        neuralNetwork.learn(trainingSet); 
+        DataSet trainingSet = new DataSet(2,1);        
+        //DataSet trainingSet = DataSet.createFromFile(processedDataFile, 2, 1, csvSplitBy);
+        
+        try (BufferedReader br = new BufferedReader(new FileReader(processedDataFile))) {
+            while ((line = br.readLine()) != null) {
+                String[] zaznam = line.split(csvSplitBy);
+                // add training data to training set
+                trainingSet.addRow(new DataSetRow (new double[]{Double.parseDouble(zaznam[0]), Double.parseDouble(zaznam[1])}, new double[]{Double.parseDouble(zaznam[2])})); 
+            }
+            
+            // learn the training set 
+            neuralNetwork.learn(trainingSet); 
  
-        // save the trained network into file 
-        neuralNetwork.save("or_perceptron.nnet");
-        */
+            System.out.println("Done training."); 
+            System.out.println("Testing network..."); 
+         
+            testNeuralNetwork(neuralNetwork); 
+            
+            // save the trained network into file 
+            neuralNetwork.save("or_perceptron.nnet");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
         
-        processData(sensor, "C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/P. Rojek/indora-1540484172540.csv");
+        //processData(sensor, "C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/P. Rojek/indora-1540484172540.csv");
         
+        /*
         try {
             JavaPlot p = new JavaPlot();
             double[][] data = null;
@@ -80,7 +94,8 @@ public class DataPreprocessing {
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Zadana aktivita sa v dátach nenachadza!");
-        }		
+        }
+        */
     }
     
     public static double[][] filterCSVFileBySensorAndActivity(String sensor, String activity, String csvFile) {
@@ -88,7 +103,7 @@ public class DataPreprocessing {
         map = new HashMap<Double, Double>();
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             while ((line = br.readLine()) != null) {
-                String[] zaznam = line.split(cvsSplitBy);
+                String[] zaznam = line.split(csvSplitBy);
                 for (int i = 0; i < zaznam.length; i++) {
                     if (zaznam[2].equals(sensor) && zaznam[1].equals(activity)) {
                         map.put(Double.valueOf(zaznam[0]),Double.valueOf(Math.sqrt(Double.parseDouble(zaznam[3]) * Double.parseDouble(zaznam[3])
@@ -122,6 +137,7 @@ public class DataPreprocessing {
             while ((line = br.readLine()) != null) {
                 String[] zaznam = line.split(cvsSplitBy);
                 currentActivity = zaznam[1];
+                //in this expirement we only assume activity "walking" and "standing"
                 if (zaznam[2].equals(sensor) && (currentActivity.equals("standing")||currentActivity.equals("walking"))) {
                     if (currentActivity.equals("walking")) {
                         activityCode = "1";
@@ -177,18 +193,20 @@ public class DataPreprocessing {
                 //compute features
                 
                 //insert into dataset
-                //pw.print(/*in right format depending on chosen features*/);
-                //pw.println();
+                pw.print(mean(currentPosition) + csvSplitBy + standardDeviation(currentPosition) + csvSplitBy + (int)activity.get(0)[2]);
+                pw.println();
                 
-                currentPosition += numberOfSamplesInFrame;
+                currentPosition += numberOfSamplesInFrame/2; //diveded by 2 because we have 50% window overlapping
             }
             
-            //onlz for testing for now
+            /*
+            //only for testing for now
             for(double[] line: oneActivity){
                 //pw.print(line[0] + cvsSplitBy + line[1] + cvsSplitBy + line[2] + cvsSplitBy + line[3] + cvsSplitBy + (int)line[4]);
                 pw.print(line[0] + cvsSplitBy + line[1] + cvsSplitBy + (int)line[2]);
                 pw.println();
-            }               
+            }     
+            */          
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -199,4 +217,38 @@ public class DataPreprocessing {
     }
     
     //metody na vypocty featurov, ktore sa budu volat v compute metode a na vstupe budu bat oneActivity
+    
+    //simple mean
+    private static double mean(int fromIndex){
+        double sum = 0.0;
+        for (int i = fromIndex; i < fromIndex + numberOfSamplesInFrame; i++) {
+            sum = sum + oneActivity.get(i)[1];
+        }
+        return sum/numberOfSamplesInFrame;
+    }
+    
+    //standard deviation
+    private static double standardDeviation(int fromIndex){
+        double mean = mean(fromIndex);
+        double sum = 0.0;
+        for (int i = fromIndex; i < fromIndex + numberOfSamplesInFrame; i++) {
+            sum = sum + Math.pow(oneActivity.get(i)[1] - mean, 2);
+        }
+        return Math.sqrt(sum/(numberOfSamplesInFrame-1));                
+    }
+    
+     /**
+     * Prints network output for the each element from the specified training set. 
+     * @param neuralNet neural network 
+     * @param trainingSet training set 
+     */ 
+    public static void testNeuralNetwork(NeuralNetwork neuralNet) { 
+ 
+        neuralNet.setInput(new double[]{43.18602115267101, 3.2018294701549244}); 
+        neuralNet.calculate(); 
+        double[] networkOutput = neuralNet.getOutput(); 
+ 
+        System.out.println(" Output: " + Arrays.toString( networkOutput) ); 
+         
+    } 
 }
