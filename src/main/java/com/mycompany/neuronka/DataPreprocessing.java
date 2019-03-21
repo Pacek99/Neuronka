@@ -95,7 +95,7 @@ public class DataPreprocessing implements LearningEventListener{
             e.printStackTrace();
         } 
         */
-        processData(sensor, "C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/P. Rojek/indora-1540484172540.csv");
+        processData(sensor, "C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/pokus/indora-1540362934669.csv");
         
         
         try {
@@ -202,9 +202,7 @@ public class DataPreprocessing implements LearningEventListener{
         int startTime = (int)activity.get(0)[0]; 
         int endTime = (int)activity.get(activity.size()-1)[0];
         int currentStartListPosition = 0;
-        /*if (numberOfSamples<numberOfSamplesInFrame) {
-            return;
-        }*/
+
         if (endTime-startTime<milisecondsInFrame) {
             return;
         }
@@ -214,7 +212,7 @@ public class DataPreprocessing implements LearningEventListener{
         try {
             pw = new PrintWriter(new FileOutputStream(new File(processedDataFile),true /*append*/));
             while (frameEndTime <= endTime) {
-                //here we compute window containing samples from currentPosition to currentPosition + numberOfSamplesInFrame
+                //here we compute window containing samples from between startTime and frameEndTime
                 //compute features
                 
                 //get oneActivityAxisValues for current frame
