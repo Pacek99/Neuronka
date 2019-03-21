@@ -95,7 +95,34 @@ public class DataPreprocessing implements LearningEventListener{
             e.printStackTrace();
         } 
         */
-        processData(sensor, "C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/pokus/indora-1540362934669.csv");
+        Map<String, String> subory = new HashMap<String,String>();
+        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/pokus/indora-1540362934669.csv", sensor);
+        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/pokus/indora-1540363314900.csv", sensor);
+        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/pokus/indora-1540363406576.csv", sensor);        
+        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/pokus/indora-1540484172540.csv", sensor);        
+        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/pokus/indora-1540484680716.csv", sensor);              
+        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/pokus/indora-1549012172677.csv", "ACCELEROMETER");
+        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/pokus/indora-1549021777198.csv", "ACCELEROMETER");        
+        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/pokus/indora-1549022025135.csv", "ACCELEROMETER");        
+        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/pokus/indora-1549022068213.csv", "ACCELEROMETER");                
+        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/pokus/indora-1549482603748.csv", "MPU6500 Acceleration Sensor");        
+        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/pokus/indora-1549482689471.csv", "MPU6500 Acceleration Sensor");
+        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/pokus/indora-1549541475108.csv", sensor);        
+        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/pokus/indora-1549541552672.csv", sensor);        
+        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/pokus/indora-1549541559653.csv", sensor);        
+        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/pokus/indora-1549541572516.csv", sensor);        
+        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/pokus/indora-1549541582979.csv", sensor);        
+        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/pokus/indora-1549541633702.csv", sensor);        
+        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/pokus/indora-1549541673057.csv", sensor);        
+        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/pokus/indora-1549541708344.csv", sensor);
+        
+        for (Map.Entry<String, String> entry : subory.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            System.out.println("Subor: " + key);
+            processData(value,key);
+        }        
+        //processData(sensor, "C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/pokus/indora-1540363314900.csv");
         
         
         try {
