@@ -62,9 +62,8 @@ public class DataPreprocessing implements LearningEventListener{
     
    // if output is greater then this value it is considered as walking
     float classificationThreshold = 0.5f;
-    
-    public static void main(String csvFile, String activity){    
-        String line = "";
+
+    public static void main(String[] args){    
         /*
         // create new perceptron network 
         //NeuralNetwork neuralNetwork = new Perceptron(2,1); 
@@ -119,12 +118,12 @@ public class DataPreprocessing implements LearningEventListener{
         for (Map.Entry<String, String> entry : subory.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
-            System.out.println("Subor: " + key);
+            System.out.println("Subor: " + key + " a akcelerometer: " + value);
             processData(value,key);
         }        
         //processData(sensor, "C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/pokus/indora-1540363314900.csv");
         
-        
+        /*
         try {
             JavaPlot p = new JavaPlot();
             double[][] data = null;
@@ -145,7 +144,9 @@ public class DataPreprocessing implements LearningEventListener{
             e.printStackTrace();
             System.out.println("Zadana aktivita sa v dátach nenachadza!");
         }
+        */
         
+        (new DataPreprocessing()).run();
     }
     
     public static double[][] filterCSVFileBySensorAndActivity(String sensor, String activity, String csvFile) {
