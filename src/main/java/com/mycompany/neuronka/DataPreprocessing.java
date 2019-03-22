@@ -121,7 +121,8 @@ public class DataPreprocessing implements LearningEventListener{
             System.out.println("Subor: " + key + " a akcelerometer: " + value);
             processData(value,key);
         }        
-        //processData(sensor, "C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/pokus/indora-1540363314900.csv");
+        
+        //processData(sensor, "C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/pokus/indora-1540363406576.csv");
         
         /*
         try {
@@ -146,6 +147,7 @@ public class DataPreprocessing implements LearningEventListener{
         }
         */
         
+        //spustenie neuronky
         (new DataPreprocessing()).run();
     }
     
@@ -212,9 +214,16 @@ public class DataPreprocessing implements LearningEventListener{
                             //tu spracovat data aktivity a dat do suboru
                             System.out.println("pocet zaznamov aktivity " + currentActivity + "  :" + oneActivity.size());
                             compute(oneActivity);
+                            oneActivity = new ArrayList<>();
                             break;
                         }
-                    }                    
+                    } 
+                    //ak sme došli na koniec suboru a posledna aktivita vo file bola este walking/standing tak ju spracujeme
+                    if (oneActivity.size() != 0) {
+                        System.out.println("pocet zaznamov aktivity " + currentActivity + "  :" + oneActivity.size());
+                            compute(oneActivity);
+                            oneActivity = new ArrayList<>();
+                    }
                 }
             }
         } catch (IOException e) {
@@ -349,8 +358,8 @@ public class DataPreprocessing implements LearningEventListener{
         learningRule.addListener(this);
         
         learningRule.setLearningRate(0.3);
-        learningRule.setMaxError(0.1);
-        learningRule.setMaxIterations(500);
+        learningRule.setMaxError(0.01);
+        learningRule.setMaxIterations(9000);
 
         System.out.println("Training network...");
         //train the network with training set
