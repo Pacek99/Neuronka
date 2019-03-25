@@ -213,7 +213,12 @@ public class DataPreprocessing implements LearningEventListener{
                         } else {
                             //tu spracovat data aktivity a dat do suboru
                             System.out.println("pocet zaznamov aktivity " + currentActivity + "  :" + oneActivity.size());
-                            compute(oneActivity);
+                            
+                            //len na histogramy
+                            //if (currentActivity.equals("standing")) {
+                                compute(oneActivity); 
+                            //}
+                            
                             oneActivity = new ArrayList<>();
                             break;
                         }
@@ -221,8 +226,13 @@ public class DataPreprocessing implements LearningEventListener{
                     //ak sme došli na koniec suboru a posledna aktivita vo file bola este walking/standing tak ju spracujeme
                     if (oneActivity.size() != 0) {
                         System.out.println("pocet zaznamov aktivity " + currentActivity + "  :" + oneActivity.size());
-                            compute(oneActivity);
-                            oneActivity = new ArrayList<>();
+                        
+                        //len na histogramy
+                        //if (currentActivity.equals("standing")) {
+                           compute(oneActivity); 
+                        //}
+                        
+                        oneActivity = new ArrayList<>();
                     }
                 }
             }
@@ -344,6 +354,9 @@ public class DataPreprocessing implements LearningEventListener{
         //Normalizing data set
         Normalizer normalizer = new MaxNormalizer();
         normalizer.normalize(dataSet);
+        
+        //save normalized dataset to file 
+        //dataSet.saveAsTxt("dataset.csv", csvSplitBy);
 
         //Creatinig training set (70%) and test set (30%)
         List<DataSet> trainingAndTestSet = dataSet.split(70, 30);
