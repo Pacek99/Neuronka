@@ -51,10 +51,7 @@ public class DataPreprocessing implements LearningEventListener{
     
     //variables for feature calc
     private static double mean;
-    
-    // for evaluating classification result
-    
-    
+       
    // if output is greater then this value it is considered as walking
     float classificationThreshold = 0.5f;
     
@@ -151,17 +148,16 @@ public class DataPreprocessing implements LearningEventListener{
         subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1553610302262.csv", sensor);        
         subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1553610326669.csv", sensor); 
         
-        /*        
+        /* vygenerovanie datasetu        
         for (Map.Entry<String, String> entry : subory.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
             System.out.println("Subor: " + key + " a akcelerometer: " + value);
             processData(value,key);
-        }*/      
+        }*/    
         
-        //processData(sensor, "C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/pokus/indora-1540363406576.csv");
         
-        /*
+        /* Javaplot
         try {
             JavaPlot p = new JavaPlot();
             double[][] data = null;
@@ -251,25 +247,7 @@ public class DataPreprocessing implements LearningEventListener{
                         activityCode = "5";
                     }
                     
-                    /*
-                    switch(currentActivity){
-                        case "standing":
-                            activityCode = "0";
-                        case "walking":
-                            activityCode = "1";
-                        case "walkingUpstairs":
-                            activityCode = "2";
-                        case "walkingDownstairs":
-                            activityCode = "3";
-                        case "elevatorUp":
-                            activityCode = "4";
-                        case "elevatorDown":
-                            activityCode = "5"; 
-                        default:
-                            activityCode = "Error";
-                            System.out.println("Chyba: " + zaznam[0] +  " a " + zaznam[1]);
-                    }
-                    */
+                   
                     oneActivity = new ArrayList<>();
                     oneActivity.add(new double[]{Double.valueOf(zaznam[0]), Math.sqrt(Double.parseDouble(zaznam[3])*Double.parseDouble(zaznam[3])
                                         + Double.parseDouble(zaznam[4])*Double.parseDouble(zaznam[4])
@@ -365,23 +343,6 @@ public class DataPreprocessing implements LearningEventListener{
                     if ((int)activity.get(0)[2]==5) {
                         outputValues = "0" + csvSplitBy + "0" + csvSplitBy + "0" + csvSplitBy + "0" + csvSplitBy + "0" + csvSplitBy + "1";
                     }
-                /*
-                switch((int)activity.get(0)[2]){
-                    case 0:
-                        outputValues = "1" + csvSplitBy + "0" + csvSplitBy + "0" + csvSplitBy + "0" + csvSplitBy + "0" + csvSplitBy + "0";
-                    case 1:
-                        outputValues = "0" + csvSplitBy + "1" + csvSplitBy + "0" + csvSplitBy + "0" + csvSplitBy + "0" + csvSplitBy + "0";
-                    case 2:
-                        outputValues = "0" + csvSplitBy + "0" + csvSplitBy + "1" + csvSplitBy + "0" + csvSplitBy + "0" + csvSplitBy + "0";
-                    case 3:
-                        outputValues = "0" + csvSplitBy + "0" + csvSplitBy + "0" + csvSplitBy + "1" + csvSplitBy + "0" + csvSplitBy + "0";
-                    case 4:
-                        outputValues = "0" + csvSplitBy + "0" + csvSplitBy + "0" + csvSplitBy + "0" + csvSplitBy + "1" + csvSplitBy + "0";
-                    case 5:
-                        outputValues = "0" + csvSplitBy + "0" + csvSplitBy + "0" + csvSplitBy + "0" + csvSplitBy + "0" + csvSplitBy + "1"; 
-                    default:
-                        outputValues = "Error";
-                }*/
                 
                 //insert into dataset
                 pw.print(mean() + csvSplitBy + standardDeviation() + csvSplitBy 
