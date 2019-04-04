@@ -19,10 +19,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.apache.commons.math3.complex.Complex;
+import org.apache.commons.math3.stat.correlation.Covariance;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.apache.commons.math3.stat.descriptive.moment.Mean;
 import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
 import org.apache.commons.math3.stat.descriptive.moment.Variance;
+import org.apache.commons.math3.transform.DftNormalization;
+import org.apache.commons.math3.transform.FastFourierTransformer;
+import org.apache.commons.math3.transform.TransformType;
 import org.neuroph.core.*;
 import org.neuroph.core.data.DataSet;
 import org.neuroph.core.data.DataSetRow;
@@ -45,6 +50,11 @@ public class DataPreprocessing implements LearningEventListener{
     private static String processedDataFile = "processedData.csv";
     private static List<double[]> oneActivity;
     private static double[] oneActivityAxisValues;
+    
+    private static double[] oneActivityXAxisValues;
+    private static double[] oneActivityYAxisValues;
+    private static double[] oneActivityZAxisValues;
+    
     private static int milisecondsInFrame = 3000;
     private static int numberOfSamplesInFrame = 600;
     private static String csvSplitBy = "\t";
@@ -148,13 +158,13 @@ public class DataPreprocessing implements LearningEventListener{
         subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1553610302262.csv", sensor);        
         subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1553610326669.csv", sensor); 
         
-        /* vygenerovanie datasetu        
+        // vygenerovanie datasetu 
         for (Map.Entry<String, String> entry : subory.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
             System.out.println("Subor: " + key + " a akcelerometer: " + value);
             processData(value,key);
-        }*/    
+        }    
         
         
         /* Javaplot
@@ -181,7 +191,7 @@ public class DataPreprocessing implements LearningEventListener{
         */
         
         //spustenie neuronky
-        (new DataPreprocessing()).run();
+        //(new DataPreprocessing()).run();
     }
     
     /*
@@ -249,17 +259,16 @@ public class DataPreprocessing implements LearningEventListener{
                     
                    
                     oneActivity = new ArrayList<>();
-                    oneActivity.add(new double[]{Double.valueOf(zaznam[0]), Math.sqrt(Double.parseDouble(zaznam[3])*Double.parseDouble(zaznam[3])
-                                        + Double.parseDouble(zaznam[4])*Double.parseDouble(zaznam[4])
-                                        + Double.parseDouble(zaznam[5])*Double.parseDouble(zaznam[5])),Double.parseDouble(activityCode)});
+                    //add values for time, xAxis, yAxis, zAxis, activityCode
+                    oneActivity.add(new double[]{Double.valueOf(zaznam[0]), Double.parseDouble(zaznam[3]), Double.parseDouble(zaznam[4]),
+                                    Double.parseDouble(zaznam[5]), Double.parseDouble(activityCode)});
                     while ((line = br.readLine()) != null) {
                         zaznam = line.split(cvsSplitBy);
                         if (zaznam[1].equals(currentActivity)) {
-                            if (zaznam[2].equals(sensor)) {                               
-                                //we compute 3 axes together like (Math.sqrt(x*x+y*y+z*z)) 
-                                oneActivity.add(new double[]{Double.valueOf(zaznam[0]), Math.sqrt(Double.parseDouble(zaznam[3])*Double.parseDouble(zaznam[3])
-                                        + Double.parseDouble(zaznam[4])*Double.parseDouble(zaznam[4])
-                                        + Double.parseDouble(zaznam[5])*Double.parseDouble(zaznam[5])),Double.parseDouble(activityCode)});
+                            if (zaznam[2].equals(sensor)) {  
+                                //add values for time, xAxis, yAxis, zAxis, activityCode
+                                oneActivity.add(new double[]{Double.valueOf(zaznam[0]), Double.parseDouble(zaznam[3]), Double.parseDouble(zaznam[4]),
+                                    Double.parseDouble(zaznam[5]), Double.parseDouble(activityCode)});
                             }                            
                         } else {
                             //tu spracovat data aktivity a dat do suboru
@@ -317,37 +326,51 @@ public class DataPreprocessing implements LearningEventListener{
                 int i = currentStartListPosition;
                 while (oneActivity.get(i)[0]<frameEndTime) {
                     i++;                    
-                }                
-                oneActivityAxisValues = new double[i-currentStartListPosition];
-                for (int j = 0; j < oneActivityAxisValues.length; j++) {
-                    oneActivityAxisValues[j]=oneActivity.get(currentStartListPosition+j)[1];
+                }
+                
+                //oneActivityAxisValues = new double[i-currentStartListPosition];
+                oneActivityXAxisValues = new double[i-currentStartListPosition];
+                oneActivityYAxisValues = new double[i-currentStartListPosition];
+                oneActivityZAxisValues = new double[i-currentStartListPosition];
+                
+                
+                for (int j = 0; j < oneActivityXAxisValues.length; j++) {
+                    //oneActivityAxisValues[j]=oneActivity.get(currentStartListPosition+j)[1];
+                    oneActivityXAxisValues[j]=oneActivity.get(currentStartListPosition+j)[1];
+                    oneActivityYAxisValues[j]=oneActivity.get(currentStartListPosition+j)[2];
+                    oneActivityZAxisValues[j]=oneActivity.get(currentStartListPosition+j)[3];
                 }
                 
                 String outputValues = "";
                 
-                if ((int)activity.get(0)[2]==0) {
+                if ((int)activity.get(0)[4]==0) {
                         outputValues = "1" + csvSplitBy + "0" + csvSplitBy + "0" + csvSplitBy + "0" + csvSplitBy + "0" + csvSplitBy + "0";
                     } 
-                    if ((int)activity.get(0)[2]==1) {
+                    if ((int)activity.get(0)[4]==1) {
                         outputValues = "0" + csvSplitBy + "1" + csvSplitBy + "0" + csvSplitBy + "0" + csvSplitBy + "0" + csvSplitBy + "0";
                     }
-                    if ((int)activity.get(0)[2]==2) {
+                    if ((int)activity.get(0)[4]==2) {
                         outputValues = "0" + csvSplitBy + "0" + csvSplitBy + "1" + csvSplitBy + "0" + csvSplitBy + "0" + csvSplitBy + "0";
                     }
-                    if ((int)activity.get(0)[2]==3) {
+                    if ((int)activity.get(0)[4]==3) {
                         outputValues = "0" + csvSplitBy + "0" + csvSplitBy + "0" + csvSplitBy + "1" + csvSplitBy + "0" + csvSplitBy + "0";
                     }
-                    if ((int)activity.get(0)[2]==4) {
+                    if ((int)activity.get(0)[4]==4) {
                         outputValues = "0" + csvSplitBy + "0" + csvSplitBy + "0" + csvSplitBy + "0" + csvSplitBy + "1" + csvSplitBy + "0";
                     }
-                    if ((int)activity.get(0)[2]==5) {
+                    if ((int)activity.get(0)[4]==5) {
                         outputValues = "0" + csvSplitBy + "0" + csvSplitBy + "0" + csvSplitBy + "0" + csvSplitBy + "0" + csvSplitBy + "1";
                     }
                 
                 //insert into dataset
-                pw.print(mean() + csvSplitBy + standardDeviation() + csvSplitBy 
-                        + variance() + csvSplitBy + meanAbsoluteDeviation() + csvSplitBy 
-                        + rootMeanSquare() + csvSplitBy + interquartileRange() + csvSplitBy
+                pw.print(mean(oneActivityXAxisValues) + csvSplitBy + mean(oneActivityYAxisValues) + csvSplitBy + mean(oneActivityZAxisValues) + csvSplitBy
+                        + standardDeviation(oneActivityXAxisValues) + csvSplitBy + standardDeviation(oneActivityYAxisValues) + csvSplitBy + standardDeviation(oneActivityZAxisValues) + csvSplitBy
+                        + variance(oneActivityXAxisValues) + csvSplitBy + variance(oneActivityYAxisValues) + csvSplitBy + variance(oneActivityZAxisValues) + csvSplitBy
+                        + meanAbsoluteDeviation(oneActivityXAxisValues) + csvSplitBy + meanAbsoluteDeviation(oneActivityYAxisValues) + csvSplitBy + meanAbsoluteDeviation(oneActivityZAxisValues) + csvSplitBy
+                        + rootMeanSquare(oneActivityXAxisValues) + csvSplitBy + rootMeanSquare(oneActivityYAxisValues) + csvSplitBy + rootMeanSquare(oneActivityZAxisValues) + csvSplitBy
+                        + interquartileRange(oneActivityXAxisValues) + csvSplitBy + interquartileRange(oneActivityYAxisValues) + csvSplitBy + interquartileRange(oneActivityZAxisValues) + csvSplitBy
+                        //+ energy(oneActivityXAxisValues) + csvSplitBy + energy(oneActivityYAxisValues) + csvSplitBy + energy(oneActivityZAxisValues) + csvSplitBy
+                        + correlation(oneActivityXAxisValues, oneActivityYAxisValues) + csvSplitBy + correlation(oneActivityYAxisValues, oneActivityZAxisValues) + csvSplitBy + correlation(oneActivityZAxisValues, oneActivityXAxisValues) + csvSplitBy
                         + outputValues);
                 pw.println();
                 
@@ -368,47 +391,65 @@ public class DataPreprocessing implements LearningEventListener{
         }
     }
     
-    //metody na vypocty featurov, ktore sa budu volat v compute metode a na vstupe budu bat oneActivity
+    //metody na vypocty featurov, ktore sa budu volat v compute metode
     
     //simple mean
-    private static double mean(){
-        mean = new Mean().evaluate(oneActivityAxisValues);
+    private static double mean(double[] data){
+        mean = new Mean().evaluate(data);
         return mean;
     }
     
     //standard deviation
-    private static double standardDeviation(){
-        return new StandardDeviation().evaluate(oneActivityAxisValues, mean);
+    private static double standardDeviation(double[] data){
+        return new StandardDeviation().evaluate(data, mean);
     }
     
     //variance
-    private static double variance(){
-        return new Variance().evaluate(oneActivityAxisValues, mean);
+    private static double variance(double[] data){
+        return new Variance().evaluate(data, mean);
     }
     
     //mean absolute deviation
-    private static double meanAbsoluteDeviation(){
+    private static double meanAbsoluteDeviation(double[] data){
         double sum = 0.0;
-        for (int i = 0; i < oneActivityAxisValues.length; i++) {
-            sum = sum + Math.abs(oneActivityAxisValues[i] - mean);
+        for (int i = 0; i < data.length; i++) {
+            sum = sum + Math.abs(data[i] - mean);
         }
-        return sum/oneActivityAxisValues.length;
+        return sum/data.length;
     }
     
     //root mean square
-    private static double rootMeanSquare(){
+    private static double rootMeanSquare(double[] data){
         double sum = 0.0;
-        for (int i = 0; i < oneActivityAxisValues.length; i++) {
-            sum = sum + Math.pow(oneActivityAxisValues[i],2);
+        for (int i = 0; i < data.length; i++) {
+            sum = sum + Math.pow(data[i],2);
         }
-        return Math.sqrt(sum/oneActivityAxisValues.length);
+        return Math.sqrt(sum/data.length);
     }
     
     //interquartile range
-    private static double interquartileRange(){
-        DescriptiveStatistics ds = new DescriptiveStatistics(oneActivityAxisValues);
+    private static double interquartileRange(double[] data){
+        DescriptiveStatistics ds = new DescriptiveStatistics(data);
         return ds.getPercentile(75) - ds.getPercentile(25);
     }
+    
+    //energy
+    private static double energy(double[] data){
+        FastFourierTransformer fft = new FastFourierTransformer(DftNormalization.STANDARD);
+        Complex[] newData = fft.transform(data, TransformType.INVERSE);
+        double sum = 0;
+        for (int i = 0; i < newData.length; i++) {
+            sum = sum + Math.pow(newData[i].getReal(),2);            
+        }
+        return sum/newData.length;
+    }
+    
+    //correlation between axes
+    private static double correlation(double[] firstArray, double[] secondArray){
+        Covariance cov = new Covariance();
+        return cov.covariance(firstArray, secondArray)/(standardDeviation(firstArray)*standardDeviation(secondArray));
+    }
+    
     
     /*
         NEURAL NETWORK
@@ -416,7 +457,7 @@ public class DataPreprocessing implements LearningEventListener{
     
     public void run() {
         System.out.println("Creating training and test set from file...");
-        int inputsCount = 6;
+        int inputsCount = 21;
         int outputsCount = 6;
         
         //Create data set from file
@@ -436,7 +477,7 @@ public class DataPreprocessing implements LearningEventListener{
         DataSet testSet = trainingAndTestSet.get(1);
 
         //Create MultiLayerPerceptron neural network
-        MultiLayerPerceptron neuralNet = new MultiLayerPerceptron(inputsCount, 17, 10, outputsCount);
+        MultiLayerPerceptron neuralNet = new MultiLayerPerceptron(inputsCount, 30, outputsCount);
 
         //attach listener to learning rule
         MomentumBackpropagation learningRule = (MomentumBackpropagation) neuralNet.getLearningRule();
