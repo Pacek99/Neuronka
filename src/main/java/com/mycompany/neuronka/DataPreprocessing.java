@@ -14,6 +14,7 @@ import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -74,89 +75,105 @@ public class DataPreprocessing implements LearningEventListener{
         Map<String, String> subory = new HashMap<String,String>();
         
         // priečinok B. Taylorová
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/B. Taylorová/indora-1549482603748.csv", "MPU6500 Acceleration Sensor");        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/B. Taylorová/indora-1549482689471.csv", "MPU6500 Acceleration Sensor");        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/B. Taylorová/indora-1549482748787.csv", "MPU6500 Acceleration Sensor");        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/B. Taylorová/indora-1549482827151.csv", "MPU6500 Acceleration Sensor");        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/B. Taylorová/indora-1549482928447.csv", "MPU6500 Acceleration Sensor");        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/B. Taylorová/indora-1549482960030.csv", "MPU6500 Acceleration Sensor");
+        subory.put("src/main/resources/B. Taylorová/indora-1549482603748.csv", "MPU6500 Acceleration Sensor");        
+        subory.put("src/main/resources/B. Taylorová/indora-1549482689471.csv", "MPU6500 Acceleration Sensor");        
+        subory.put("src/main/resources/B. Taylorová/indora-1549482748787.csv", "MPU6500 Acceleration Sensor");        
+        subory.put("src/main/resources/B. Taylorová/indora-1549482827151.csv", "MPU6500 Acceleration Sensor");        
+        subory.put("src/main/resources/B. Taylorová/indora-1549482928447.csv", "MPU6500 Acceleration Sensor");        
+        subory.put("src/main/resources/B. Taylorová/indora-1549482960030.csv", "MPU6500 Acceleration Sensor");
+                      
+        //subory.put("src/main/resources/B. Taylorová/indora-1552906231896.csv", "MPU6500 Acceleration Sensor");       
+        //subory.put("src/main/resources/B. Taylorová/indora-1552906271137.csv", "MPU6500 Acceleration Sensor");       
+        //subory.put("src/main/resources/B. Taylorová/indora-1552906425702.csv", "MPU6500 Acceleration Sensor");       
+        //subory.put("src/main/resources/B. Taylorová/indora-1552906472467.csv", "MPU6500 Acceleration Sensor");
+               
+        //subory.put("src/main/resources/B. Taylorová/indora-1552906553847.csv", "MPU6500 Acceleration Sensor");       
+        //subory.put("src/main/resources/B. Taylorová/indora-1553278125310.csv", "MPU6500 Acceleration Sensor");       
+        //subory.put("src/main/resources/B. Taylorová/indora-1553278129057.csv", "MPU6500 Acceleration Sensor");       
+        //subory.put("src/main/resources/B. Taylorová/indora-1553278160954.csv", "MPU6500 Acceleration Sensor");  
         
         // priečinok M. Sochuliak
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/M. Sochuliak/indora-1549012172677.csv", "ACCELEROMETER");        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/M. Sochuliak/indora-1549021777198.csv", "ACCELEROMETER");        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/M. Sochuliak/indora-1549022025135.csv", "ACCELEROMETER");        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/M. Sochuliak/indora-1549022068213.csv", "ACCELEROMETER");
+        subory.put("src/main/resources/M. Sochuliak/indora-1549012172677.csv", "ACCELEROMETER");        
+        subory.put("src/main/resources/M. Sochuliak/indora-1549021777198.csv", "ACCELEROMETER");        
+        subory.put("src/main/resources/M. Sochuliak/indora-1549022025135.csv", "ACCELEROMETER");        
+        subory.put("src/main/resources/M. Sochuliak/indora-1549022068213.csv", "ACCELEROMETER");
         
         // priečinok P. Kendra
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/P. Kendra/indora-1549541475108.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/P. Kendra/indora-1549541522778.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/P. Kendra/indora-1549541552672.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/P. Kendra/indora-1549541559653.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/P. Kendra/indora-1549541572516.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/P. Kendra/indora-1549541582979.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/P. Kendra/indora-1549541633702.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/P. Kendra/indora-1549541647313.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/P. Kendra/indora-1549541673057.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/P. Kendra/indora-1549541682687.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/P. Kendra/indora-1549541695967.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/P. Kendra/indora-1549541708344.csv", sensor);
+        subory.put("src/main/resources/P. Kendra/indora-1549541475108.csv", sensor);        
+        subory.put("src/main/resources/P. Kendra/indora-1549541522778.csv", sensor);        
+        subory.put("src/main/resources/P. Kendra/indora-1549541559653.csv", sensor);        
+        subory.put("src/main/resources/P. Kendra/indora-1549541572516.csv", sensor);        
+        subory.put("src/main/resources/P. Kendra/indora-1549541582979.csv", sensor);        
+        subory.put("src/main/resources/P. Kendra/indora-1549541633702.csv", sensor);        
+        subory.put("src/main/resources/P. Kendra/indora-1549541647313.csv", sensor);        
+        subory.put("src/main/resources/P. Kendra/indora-1549541673057.csv", sensor);        
+        subory.put("src/main/resources/P. Kendra/indora-1549541682687.csv", sensor);        
+        subory.put("src/main/resources/P. Kendra/indora-1549541695967.csv", sensor);        
+        subory.put("src/main/resources/P. Kendra/indora-1549541708344.csv", sensor);
         
         // priečinok P. Rojek
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/P. Rojek/indora-1540484172540.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/P. Rojek/indora-1540484443308.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/P. Rojek/indora-1540484680716.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/P. Rojek/indora-1540546792759.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/P. Rojek/indora-1540554936805.csv", sensor);
+        subory.put("src/main/resources/P. Rojek/indora-1540484172540.csv", sensor);        
+        subory.put("src/main/resources/P. Rojek/indora-1540484443308.csv", sensor);        
+        subory.put("src/main/resources/P. Rojek/indora-1540484680716.csv", sensor);        
+        subory.put("src/main/resources/P. Rojek/indora-1540546792759.csv", sensor);        
+        subory.put("src/main/resources/P. Rojek/indora-1540554936805.csv", sensor);
+        subory.put("src/main/resources/P. Rojek/indora-1554699869876.csv", sensor);        
+        subory.put("src/main/resources/P. Rojek/indora-1554699898743.csv", sensor);        
+        subory.put("src/main/resources/P. Rojek/indora-1554699925682.csv", sensor);        
+        subory.put("src/main/resources/P. Rojek/indora-1554699994623.csv", sensor);        
+        subory.put("src/main/resources/P. Rojek/indora-1554710761298.csv", sensor);        
+        subory.put("src/main/resources/P. Rojek/indora-1554728381607.csv", sensor);        
+        subory.put("src/main/resources/P. Rojek/indora-1554728410434.csv", sensor);
         
         // priečinok Š. Rojek
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/Š. Rojek/indora-1540362934669.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/Š. Rojek/indora-1540363171233.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/Š. Rojek/indora-1540363247042.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/Š. Rojek/indora-1540363314900.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/Š. Rojek/indora-1540363406576.csv", sensor);
+        subory.put("src/main/resources/Š. Rojek/indora-1540362934669.csv", sensor);        
+        subory.put("src/main/resources/Š. Rojek/indora-1540363171233.csv", sensor);        
+        subory.put("src/main/resources/Š. Rojek/indora-1540363247042.csv", sensor);        
+        subory.put("src/main/resources/Š. Rojek/indora-1540363314900.csv", sensor);        
+        subory.put("src/main/resources/Š. Rojek/indora-1540363406576.csv", sensor);
         
         // priečinok sk.upjs.indora.sensorsrecorder         
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1549541475108.csv", sensor);
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1549541522778.csv", sensor);
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1549541552672.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1549541559653.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1549541572516.csv", sensor); 
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1549541475108.csv", sensor);
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1549541522778.csv", sensor);
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1549541552672.csv", sensor);        
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1549541559653.csv", sensor);        
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1549541572516.csv", sensor); 
         
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1549541582979.csv", sensor);
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1549541633702.csv", sensor);
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1549541647313.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1549541673057.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1549541682687.csv", sensor); 
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1549541582979.csv", sensor);
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1549541633702.csv", sensor);
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1549541647313.csv", sensor);        
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1549541673057.csv", sensor);        
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1549541682687.csv", sensor); 
         
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1549541695967.csv", sensor);
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1549541708344.csv", sensor);
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1553014481636.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1553014543983.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1553014570035.csv", sensor); 
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1549541695967.csv", sensor);
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1549541708344.csv", sensor);
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1553014481636.csv", sensor);        
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1553014543983.csv", sensor);        
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1553014570035.csv", sensor); 
         
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1553019600096.csv", sensor);
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1553019658511.csv", sensor);
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1553019699799.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1553589053903.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1553589171764.csv", sensor); 
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1553019600096.csv", sensor);
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1553019658511.csv", sensor);
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1553019699799.csv", sensor);        
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1553589053903.csv", sensor);        
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1553589171764.csv", sensor); 
         
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1553589248068.csv", sensor);
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1553589338226.csv", sensor);
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1553589368041.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1553589528999.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1553609125909.csv", sensor); 
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1553589248068.csv", sensor);
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1553589338226.csv", sensor);
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1553589368041.csv", sensor);        
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1553589528999.csv", sensor);        
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1553609125909.csv", sensor); 
         
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1553609140518.csv", sensor);
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1553609169349.csv", sensor);
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1553609197288.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1553609224970.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1553609253485.csv", sensor); 
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1553609140518.csv", sensor);
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1553609169349.csv", sensor);
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1553609197288.csv", sensor);        
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1553609224970.csv", sensor);        
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1553609253485.csv", sensor); 
         
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1553610218773.csv", sensor);
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1553610244950.csv", sensor);
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1553610273270.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1553610302262.csv", sensor);        
-        subory.put("C:/Users/Patrik/Desktop/Bakalarka - SensorRecorder dáta/sk.upjs.indora.sensorsrecorder/indora-1553610326669.csv", sensor); 
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1553610218773.csv", sensor);
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1553610244950.csv", sensor);
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1553610273270.csv", sensor);        
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1553610302262.csv", sensor);        
+        subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1553610326669.csv", sensor); 
         
         // vygenerovanie datasetu 
         for (Map.Entry<String, String> entry : subory.entrySet()) {
@@ -304,6 +321,7 @@ public class DataPreprocessing implements LearningEventListener{
     //here we should divide activity into windows
     //and compute our features for every window and insert one line with feature values into dataset file
     private static void compute(List<double[]> activity) {
+        int numberOfFramesComputed = 0;
         PrintWriter pw = null;
         //int numberOfSamples = activity.size();
         int startTime = (int)activity.get(0)[0]; 
@@ -338,7 +356,7 @@ public class DataPreprocessing implements LearningEventListener{
                     //oneActivityAxisValues[j]=oneActivity.get(currentStartListPosition+j)[1];
                     oneActivityXAxisValues[j]=oneActivity.get(currentStartListPosition+j)[1];
                     oneActivityYAxisValues[j]=oneActivity.get(currentStartListPosition+j)[2];
-                    oneActivityZAxisValues[j]=oneActivity.get(currentStartListPosition+j)[3];
+                     oneActivityZAxisValues[j]=oneActivity.get(currentStartListPosition+j)[3];
                 }
                 
                 String outputValues = "";
@@ -369,10 +387,12 @@ public class DataPreprocessing implements LearningEventListener{
                         + meanAbsoluteDeviation(oneActivityXAxisValues) + csvSplitBy + meanAbsoluteDeviation(oneActivityYAxisValues) + csvSplitBy + meanAbsoluteDeviation(oneActivityZAxisValues) + csvSplitBy
                         + rootMeanSquare(oneActivityXAxisValues) + csvSplitBy + rootMeanSquare(oneActivityYAxisValues) + csvSplitBy + rootMeanSquare(oneActivityZAxisValues) + csvSplitBy
                         + interquartileRange(oneActivityXAxisValues) + csvSplitBy + interquartileRange(oneActivityYAxisValues) + csvSplitBy + interquartileRange(oneActivityZAxisValues) + csvSplitBy
-                        //+ energy(oneActivityXAxisValues) + csvSplitBy + energy(oneActivityYAxisValues) + csvSplitBy + energy(oneActivityZAxisValues) + csvSplitBy
+                        + energy(oneActivityXAxisValues) + csvSplitBy + energy(oneActivityYAxisValues) + csvSplitBy + energy(oneActivityZAxisValues) + csvSplitBy
                         + correlation(oneActivityXAxisValues, oneActivityYAxisValues) + csvSplitBy + correlation(oneActivityYAxisValues, oneActivityZAxisValues) + csvSplitBy + correlation(oneActivityZAxisValues, oneActivityXAxisValues) + csvSplitBy
                         + outputValues);
                 pw.println();
+                
+                numberOfFramesComputed++;
                 
                 //update variables currentStartListPosition,startTime,frameEndTime
                 int newFrameStartTime = startTime + milisecondsInFrame/2; //diveded by 2 because we have 50% window overlapping
@@ -389,6 +409,8 @@ public class DataPreprocessing implements LearningEventListener{
                 pw.close();
             }
         }
+        
+        System.out.println("pocet frameov: " + numberOfFramesComputed);
     }
     
     //metody na vypocty featurov, ktore sa budu volat v compute metode
@@ -436,7 +458,15 @@ public class DataPreprocessing implements LearningEventListener{
     //energy
     private static double energy(double[] data){
         FastFourierTransformer fft = new FastFourierTransformer(DftNormalization.STANDARD);
-        Complex[] newData = fft.transform(data, TransformType.INVERSE);
+        
+        //tu este uprava dlzky dat na mocninu 2
+        int mocnina = 1;
+        while (mocnina<=data.length) {
+            mocnina = mocnina*2;            
+        }
+        double[] newArray = Arrays.copyOf(data,mocnina);
+                
+        Complex[] newData = fft.transform(newArray, TransformType.INVERSE);
         double sum = 0;
         for (int i = 0; i < newData.length; i++) {
             sum = sum + Math.pow(newData[i].getReal(),2);            
@@ -457,7 +487,7 @@ public class DataPreprocessing implements LearningEventListener{
     
     public void run() {
         System.out.println("Creating training and test set from file...");
-        int inputsCount = 21;
+        int inputsCount = 24;
         int outputsCount = 6;
         
         //Create data set from file
@@ -485,7 +515,7 @@ public class DataPreprocessing implements LearningEventListener{
         
         learningRule.setLearningRate(0.01);
         learningRule.setMaxError(0.001);
-        learningRule.setMaxIterations(50000);
+        learningRule.setMaxIterations(10000);
 
         System.out.println("Training network...");
         //train the network with training set
