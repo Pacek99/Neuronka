@@ -70,6 +70,8 @@ public class DataPreprocessing implements LearningEventListener{
     public int[] count = new int[7];
     public int[] correct = new int[7];
     int unpredicted = 0;
+    int[][] testingResults = new int[6][6];
+    
 
     public static void main(String[] args){    
         Map<String, String> subory = new HashMap<String,String>();
@@ -208,7 +210,7 @@ public class DataPreprocessing implements LearningEventListener{
         */
         
         //spustenie neuronky
-        //(new DataPreprocessing()).run();
+        (new DataPreprocessing()).run();
     }
     
     /*
@@ -515,7 +517,7 @@ public class DataPreprocessing implements LearningEventListener{
         
         learningRule.setLearningRate(0.01);
         learningRule.setMaxError(0.001);
-        learningRule.setMaxIterations(10000);
+        learningRule.setMaxIterations(1000);
 
         System.out.println("Training network...");
         //train the network with training set
@@ -556,9 +558,18 @@ public class DataPreprocessing implements LearningEventListener{
                     + this.correct[i] + "/" + count[i] + "(" + formatDecimalNumber(p) + "%). ");
         }
         
+        System.out.println("Results matrix:");
+        System.out.println("    standing    walking walkingUpstairs walkingDownstairs   elevatorUp  elevetorDown");
+        for (int i = 0; i < 6; i++) {
+            System.out.println(getClasificationClass(i) + " " + testingResults[i][0] + " " + testingResults[i][1] + " " + testingResults[i][2]
+            + " " + testingResults[i][3] + " " + testingResults[i][4] + " " + testingResults[i][5]);
+        }
+        
+        
         this.count = new int[7];
         this.correct = new int[7];
         unpredicted = 0;
+        this.testingResults = new int[6][6];
     }
     
      @Override
@@ -585,9 +596,9 @@ public class DataPreprocessing implements LearningEventListener{
             }
         }
         //If maximum is less than 0.5, that prediction will not count. 
-        if (max < 0.5) {
-            return -1;
-        }
+        //if (max < 0.5) {
+        //    return -1;
+        //}
         return index;
     }
 
@@ -603,6 +614,8 @@ public class DataPreprocessing implements LearningEventListener{
         if (prediction == -1) {
             unpredicted++;
         }
+        
+        testingResults[ideal][prediction]++;
     }
     
     //Formating decimal number to have 3 decimal places
