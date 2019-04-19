@@ -5,6 +5,10 @@
  */
 package com.mycompany.neuronka;
 
+import com.panayotis.gnuplot.JavaPlot;
+import com.panayotis.gnuplot.plot.DataSetPlot;
+import com.panayotis.gnuplot.style.PlotStyle;
+import com.panayotis.gnuplot.style.Style;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -185,12 +189,12 @@ public class DataPreprocessing implements LearningEventListener{
             processData(value,key);
         }    
         
-        
-        /* Javaplot
+        /*
+        // Javaplot
         try {
             JavaPlot p = new JavaPlot();
             double[][] data = null;
-            data = filterCSVFileBySensorAndActivity(sensor, activity, csvFile);
+            data = filterCSVFileBySensorAndActivity(sensor, "elevatorUp", "src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1553610326669.csv");
             if (data == null) {
                 System.out.println("Data array is empty!");
                 return;
@@ -199,9 +203,11 @@ public class DataPreprocessing implements LearningEventListener{
             myPlotStyle.setStyle(Style.HISTEPS);
             myPlotStyle.setLineWidth(1);
             DataSetPlot s = new DataSetPlot(data);
-            s.setTitle("Graf " + activity);
+            s.setTitle("Graf aktivity cesta výťahom hore");
             s.setPlotStyle(myPlotStyle);
             p.addPlot(s);
+            p.getAxis("x").setLabel("ms");            
+            p.getAxis("y").setLabel("m/s^2");
             p.plot();
         } catch (Exception e) {
             e.printStackTrace();
@@ -217,13 +223,17 @@ public class DataPreprocessing implements LearningEventListener{
     //toto patri k Javaplotu
     public static double[][] filterCSVFileBySensorAndActivity(String sensor, String activity, String csvFile) {
 	String line = "";
+        double startTime = -1;
         map = new HashMap<Double, Double>();
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             while ((line = br.readLine()) != null) {
                 String[] zaznam = line.split(csvSplitBy);
+                if (startTime == -1) {
+                    startTime = Double.parseDouble(zaznam[0]);
+                }
                 for (int i = 0; i < zaznam.length; i++) {
                     if (zaznam[2].equals(sensor) && zaznam[1].equals(activity)) {
-                        map.put(Double.valueOf(zaznam[0]),Double.valueOf(Math.sqrt(Double.parseDouble(zaznam[3]) * Double.parseDouble(zaznam[3])
+                        map.put(Double.valueOf(Double.parseDouble(zaznam[0]) - startTime),Double.valueOf(Math.sqrt(Double.parseDouble(zaznam[3]) * Double.parseDouble(zaznam[3])
                                 + Double.parseDouble(zaznam[4]) * Double.parseDouble(zaznam[4])
                                 + Double.parseDouble(zaznam[5]) * Double.parseDouble(zaznam[5]))));
                     }
@@ -244,8 +254,41 @@ public class DataPreprocessing implements LearningEventListener{
         }
         return data;
     }
-    */
     
+    //toto patri k Javaplotu
+    public static double[][] filterCSVFileBySensorAndActivityOnlyZAxis(String sensor, String activity, String csvFile) {
+        String line = "";
+        String cvsSplitBy = "\t";
+        map = new HashMap<Double, Double>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+                while ((line = br.readLine()) != null) {
+                        String[] zaznam = line.split(cvsSplitBy);
+                        for (int i = 0; i < zaznam.length; i++) {
+                                if (zaznam[2].equals(sensor) && zaznam[1].equals(activity)) {
+                                        map.put(Double.valueOf(zaznam[0]), Double.valueOf(Double.parseDouble(zaznam[5])));
+                                }
+                        }
+                }
+        } catch (IOException e) {
+                e.printStackTrace();
+        }
+
+        double[][] data = new double[map.size()][2];
+        Set entries = map.entrySet();
+        Iterator entriesIterator = entries.iterator();
+
+        int i = 0;
+        while (entriesIterator.hasNext()) {
+                Map.Entry mapping = (Map.Entry) entriesIterator.next();
+                data[i][0] = (double) mapping.getKey();
+                data[i][1] = (double) mapping.getValue();
+                i++;
+        }
+        return data;
+    }    
+    */
+        
     public static void processData(String sensor, String csvFile){
         String line = "";
 	String cvsSplitBy = "\t";
