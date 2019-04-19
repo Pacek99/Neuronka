@@ -80,7 +80,7 @@ public class ExternalDatasetVersion implements LearningEventListener{
 
     public static void main(String[] args){            
         //skuska s datasetom z internetu
-        processData("src/main/resources/Phones_accelerometer.csv");
+        //processData("src/main/resources/Phones_accelerometer.csv");
         
         //spustenie neuronky
         (new ExternalDatasetVersion()).run();
@@ -110,6 +110,12 @@ public class ExternalDatasetVersion implements LearningEventListener{
                         break;
                     case "stairsdown":
                         activityCode = "3";
+                        break;
+                    case "sit":
+                        activityCode = "4";
+                        break;
+                    case "bike":
+                        activityCode = "5";
                         break;
                     default:
                         //aktivita ktoru neuvazujeme
@@ -357,7 +363,7 @@ public class ExternalDatasetVersion implements LearningEventListener{
         
         learningRule.setLearningRate(0.01);
         learningRule.setMaxError(0.001);
-        learningRule.setMaxIterations(1000);
+        learningRule.setMaxIterations(2000);
 
         System.out.println("Training network...");
         //train the network with training set
@@ -402,7 +408,7 @@ public class ExternalDatasetVersion implements LearningEventListener{
         }
         
         System.out.println("Results matrix:");
-        System.out.println("    standing    walking walkingUpstairs walkingDownstairs   elevatorUp  elevetorDown");
+        System.out.println("    standing    walking walkingUpstairs walkingDownstairs   sit  bike");
         for (int i = 0; i < 6; i++) {
             System.out.println(getClasificationClass(i) + " " + testingResults[i][0] + " " + testingResults[i][1] + " " + testingResults[i][2]
             + " " + testingResults[i][3] + " " + testingResults[i][4] + " " + testingResults[i][5]);
@@ -477,9 +483,9 @@ public class ExternalDatasetVersion implements LearningEventListener{
             case 3:
                 return "walkingDownstairs";
             case 4:
-                return "elevatorUp";
+                return "sit";
             case 5:
-                return "elevatorDown";          
+                return "bike";          
             default:
                 return "error";
         }
