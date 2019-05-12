@@ -76,33 +76,35 @@ public class DataPreprocessing implements LearningEventListener{
     int unpredicted = 0;
     int[][] testingResults = new int[6][6];
     
+    //vypocet celkoveho casu datasetu
+    private static double celkovyCas;    
 
     public static void main(String[] args){    
         Map<String, String> subory = new HashMap<String,String>();
         
         // priečinok B. Taylorová
-        //subory.put("src/main/resources/B. Taylorová/indora-1549482603748.csv", "MPU6500 Acceleration Sensor");        
-        //subory.put("src/main/resources/B. Taylorová/indora-1549482689471.csv", "MPU6500 Acceleration Sensor");        
-        //subory.put("src/main/resources/B. Taylorová/indora-1549482748787.csv", "MPU6500 Acceleration Sensor");        
-        //subory.put("src/main/resources/B. Taylorová/indora-1549482827151.csv", "MPU6500 Acceleration Sensor");        
-        //subory.put("src/main/resources/B. Taylorová/indora-1549482928447.csv", "MPU6500 Acceleration Sensor");        
-        //subory.put("src/main/resources/B. Taylorová/indora-1549482960030.csv", "MPU6500 Acceleration Sensor");
+        subory.put("src/main/resources/B. Taylorová/indora-1549482603748.csv", "MPU6500 Acceleration Sensor");        
+        subory.put("src/main/resources/B. Taylorová/indora-1549482689471.csv", "MPU6500 Acceleration Sensor");        
+        subory.put("src/main/resources/B. Taylorová/indora-1549482748787.csv", "MPU6500 Acceleration Sensor");        
+        subory.put("src/main/resources/B. Taylorová/indora-1549482827151.csv", "MPU6500 Acceleration Sensor");        
+        subory.put("src/main/resources/B. Taylorová/indora-1549482928447.csv", "MPU6500 Acceleration Sensor");        
+        subory.put("src/main/resources/B. Taylorová/indora-1549482960030.csv", "MPU6500 Acceleration Sensor");
                       
-        //subory.put("src/main/resources/B. Taylorová/indora-1552906231896.csv", "MPU6500 Acceleration Sensor");       
-        //subory.put("src/main/resources/B. Taylorová/indora-1552906271137.csv", "MPU6500 Acceleration Sensor");       
-        //subory.put("src/main/resources/B. Taylorová/indora-1552906425702.csv", "MPU6500 Acceleration Sensor");       
-        //subory.put("src/main/resources/B. Taylorová/indora-1552906472467.csv", "MPU6500 Acceleration Sensor");
+        subory.put("src/main/resources/B. Taylorová/indora-1552906231896.csv", "MPU6500 Acceleration Sensor");       
+        subory.put("src/main/resources/B. Taylorová/indora-1552906271137.csv", "MPU6500 Acceleration Sensor");       
+        subory.put("src/main/resources/B. Taylorová/indora-1552906425702.csv", "MPU6500 Acceleration Sensor");       
+        subory.put("src/main/resources/B. Taylorová/indora-1552906472467.csv", "MPU6500 Acceleration Sensor");
                
-        //subory.put("src/main/resources/B. Taylorová/indora-1552906553847.csv", "MPU6500 Acceleration Sensor");       
-        //subory.put("src/main/resources/B. Taylorová/indora-1553278125310.csv", "MPU6500 Acceleration Sensor");       
-        //subory.put("src/main/resources/B. Taylorová/indora-1553278129057.csv", "MPU6500 Acceleration Sensor");       
-        //subory.put("src/main/resources/B. Taylorová/indora-1553278160954.csv", "MPU6500 Acceleration Sensor");  
+        subory.put("src/main/resources/B. Taylorová/indora-1552906553847.csv", "MPU6500 Acceleration Sensor");       
+        subory.put("src/main/resources/B. Taylorová/indora-1553278125310.csv", "MPU6500 Acceleration Sensor");       
+        subory.put("src/main/resources/B. Taylorová/indora-1553278129057.csv", "MPU6500 Acceleration Sensor");       
+        subory.put("src/main/resources/B. Taylorová/indora-1553278160954.csv", "MPU6500 Acceleration Sensor");  
         
         // priečinok M. Sochuliak
-        //subory.put("src/main/resources/M. Sochuliak/indora-1549012172677.csv", "ACCELEROMETER");        
-        //subory.put("src/main/resources/M. Sochuliak/indora-1549021777198.csv", "ACCELEROMETER");        
-        //subory.put("src/main/resources/M. Sochuliak/indora-1549022025135.csv", "ACCELEROMETER");        
-        //subory.put("src/main/resources/M. Sochuliak/indora-1549022068213.csv", "ACCELEROMETER");
+        subory.put("src/main/resources/M. Sochuliak/indora-1549012172677.csv", "ACCELEROMETER");        
+        subory.put("src/main/resources/M. Sochuliak/indora-1549021777198.csv", "ACCELEROMETER");        
+        subory.put("src/main/resources/M. Sochuliak/indora-1549022025135.csv", "ACCELEROMETER");        
+        subory.put("src/main/resources/M. Sochuliak/indora-1549022068213.csv", "ACCELEROMETER");
         
         // priečinok P. Kendra
         subory.put("src/main/resources/P. Kendra/indora-1549541475108.csv", sensor);        
@@ -181,6 +183,8 @@ public class DataPreprocessing implements LearningEventListener{
         subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1553610302262.csv", sensor);        
         subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1553610326669.csv", sensor); 
         
+        celkovyCas = 0;
+        
         // vygenerovanie datasetu 
         for (Map.Entry<String, String> entry : subory.entrySet()) {
             String key = entry.getKey();
@@ -189,6 +193,7 @@ public class DataPreprocessing implements LearningEventListener{
             processData(value,key);
         }    
         
+        System.out.println("Celkovy cas: " + celkovyCas);
         /*
         // Javaplot
         try {
@@ -216,7 +221,7 @@ public class DataPreprocessing implements LearningEventListener{
         */
         
         //spustenie neuronky
-        (new DataPreprocessing()).run();
+        //(new DataPreprocessing()).run();
     }
     
     /*
@@ -366,6 +371,7 @@ public class DataPreprocessing implements LearningEventListener{
     //here we should divide activity into windows
     //and compute our features for every window and insert one line with feature values into dataset file
     private static void compute(List<double[]> activity) {
+        celkovyCas += (activity.get(activity.size()-1)[0] - activity.get(0)[0])/1000;
         int numberOfFramesComputed = 0;
         PrintWriter pw = null;
         //int numberOfSamples = activity.size();
