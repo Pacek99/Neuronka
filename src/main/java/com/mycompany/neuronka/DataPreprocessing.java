@@ -82,42 +82,47 @@ public class DataPreprocessing implements LearningEventListener{
     public static void main(String[] args){    
         Map<String, String> subory = new HashMap<String,String>();
         
-        // priečinok B. Taylorová
-        subory.put("src/main/resources/B. Taylorová/indora-1549482603748.csv", "MPU6500 Acceleration Sensor");        
-        subory.put("src/main/resources/B. Taylorová/indora-1549482689471.csv", "MPU6500 Acceleration Sensor");        
-        subory.put("src/main/resources/B. Taylorová/indora-1549482748787.csv", "MPU6500 Acceleration Sensor");        
-        subory.put("src/main/resources/B. Taylorová/indora-1549482827151.csv", "MPU6500 Acceleration Sensor");        
-        subory.put("src/main/resources/B. Taylorová/indora-1549482928447.csv", "MPU6500 Acceleration Sensor");        
-        subory.put("src/main/resources/B. Taylorová/indora-1549482960030.csv", "MPU6500 Acceleration Sensor");
+        // priečinok device1
+        subory.put("src/main/resources/device1/indora-1549482603748.csv", "MPU6500 Acceleration Sensor");        
+        subory.put("src/main/resources/device1/indora-1549482689471.csv", "MPU6500 Acceleration Sensor");        
+        subory.put("src/main/resources/device1/indora-1549482748787.csv", "MPU6500 Acceleration Sensor");        
+        subory.put("src/main/resources/device1/indora-1549482827151.csv", "MPU6500 Acceleration Sensor");        
+        subory.put("src/main/resources/device1/indora-1549482928447.csv", "MPU6500 Acceleration Sensor");        
+        subory.put("src/main/resources/device1/indora-1549482960030.csv", "MPU6500 Acceleration Sensor");
                       
-        subory.put("src/main/resources/B. Taylorová/indora-1552906231896.csv", "MPU6500 Acceleration Sensor");       
-        subory.put("src/main/resources/B. Taylorová/indora-1552906271137.csv", "MPU6500 Acceleration Sensor");       
-        subory.put("src/main/resources/B. Taylorová/indora-1552906425702.csv", "MPU6500 Acceleration Sensor");       
-        subory.put("src/main/resources/B. Taylorová/indora-1552906472467.csv", "MPU6500 Acceleration Sensor");
+        subory.put("src/main/resources/device1/indora-1552906231896.csv", "MPU6500 Acceleration Sensor");       
+        subory.put("src/main/resources/device1/indora-1552906271137.csv", "MPU6500 Acceleration Sensor");       
+        subory.put("src/main/resources/device1/indora-1552906425702.csv", "MPU6500 Acceleration Sensor");       
+        subory.put("src/main/resources/device1/indora-1552906472467.csv", "MPU6500 Acceleration Sensor");
                
-        subory.put("src/main/resources/B. Taylorová/indora-1552906553847.csv", "MPU6500 Acceleration Sensor");       
-        subory.put("src/main/resources/B. Taylorová/indora-1553278125310.csv", "MPU6500 Acceleration Sensor");       
-        subory.put("src/main/resources/B. Taylorová/indora-1553278129057.csv", "MPU6500 Acceleration Sensor");       
-        subory.put("src/main/resources/B. Taylorová/indora-1553278160954.csv", "MPU6500 Acceleration Sensor");  
+        subory.put("src/main/resources/device1/indora-1552906553847.csv", "MPU6500 Acceleration Sensor");       
+        subory.put("src/main/resources/device1/indora-1553278125310.csv", "MPU6500 Acceleration Sensor");       
+        subory.put("src/main/resources/device1/indora-1553278129057.csv", "MPU6500 Acceleration Sensor");       
+        subory.put("src/main/resources/device1/indora-1553278160954.csv", "MPU6500 Acceleration Sensor");  
         
-        // priečinok M. Sochuliak
-        subory.put("src/main/resources/M. Sochuliak/indora-1549012172677.csv", "ACCELEROMETER");        
-        subory.put("src/main/resources/M. Sochuliak/indora-1549021777198.csv", "ACCELEROMETER");        
-        subory.put("src/main/resources/M. Sochuliak/indora-1549022025135.csv", "ACCELEROMETER");        
-        subory.put("src/main/resources/M. Sochuliak/indora-1549022068213.csv", "ACCELEROMETER");
+        // priečinok device2
+        subory.put("src/main/resources/device2/indora-1549012172677.csv", "ACCELEROMETER");        
+        subory.put("src/main/resources/device2/indora-1549021777198.csv", "ACCELEROMETER");        
+        subory.put("src/main/resources/device2/indora-1549022025135.csv", "ACCELEROMETER");        
+        subory.put("src/main/resources/device2/indora-1549022068213.csv", "ACCELEROMETER");
         
-        // priečinok P. Kendra
-        subory.put("src/main/resources/P. Kendra/indora-1549541475108.csv", sensor);        
-        subory.put("src/main/resources/P. Kendra/indora-1549541522778.csv", sensor);        
-        subory.put("src/main/resources/P. Kendra/indora-1549541559653.csv", sensor);        
-        subory.put("src/main/resources/P. Kendra/indora-1549541572516.csv", sensor);        
-        subory.put("src/main/resources/P. Kendra/indora-1549541582979.csv", sensor);        
-        subory.put("src/main/resources/P. Kendra/indora-1549541633702.csv", sensor);        
-        subory.put("src/main/resources/P. Kendra/indora-1549541647313.csv", sensor);        
-        subory.put("src/main/resources/P. Kendra/indora-1549541673057.csv", sensor);        
-        subory.put("src/main/resources/P. Kendra/indora-1549541682687.csv", sensor);        
-        subory.put("src/main/resources/P. Kendra/indora-1549541695967.csv", sensor);        
-        subory.put("src/main/resources/P. Kendra/indora-1549541708344.csv", sensor);
+        // priečinok device3
+        subory.put("src/main/resources/device3/indora-1549541475108.csv", sensor);        
+        subory.put("src/main/resources/device3/indora-1549541522778.csv", sensor);        
+        subory.put("src/main/resources/device3/indora-1549541559653.csv", sensor);        
+        subory.put("src/main/resources/device3/indora-1549541572516.csv", sensor);        
+        subory.put("src/main/resources/device3/indora-1549541582979.csv", sensor);        
+        subory.put("src/main/resources/device3/indora-1549541633702.csv", sensor);        
+        subory.put("src/main/resources/device3/indora-1549541647313.csv", sensor);        
+        subory.put("src/main/resources/device3/indora-1549541673057.csv", sensor);        
+        subory.put("src/main/resources/device3/indora-1549541682687.csv", sensor);        
+        subory.put("src/main/resources/device3/indora-1549541695967.csv", sensor);        
+        subory.put("src/main/resources/device3/indora-1549541708344.csv", sensor);
+        subory.put("src/main/resources/device3/indora-1540362934669.csv", sensor);        
+        subory.put("src/main/resources/device3/indora-1540363171233.csv", sensor);        
+        subory.put("src/main/resources/device3/indora-1540363247042.csv", sensor);        
+        subory.put("src/main/resources/device3/indora-1540363314900.csv", sensor);        
+        subory.put("src/main/resources/device3/indora-1540363406576.csv", sensor);
         
         // priečinok P. Rojek
         subory.put("src/main/resources/P. Rojek/indora-1540484172540.csv", sensor);        
@@ -131,14 +136,7 @@ public class DataPreprocessing implements LearningEventListener{
         subory.put("src/main/resources/P. Rojek/indora-1554699994623.csv", sensor);        
         subory.put("src/main/resources/P. Rojek/indora-1554710761298.csv", sensor);        
         subory.put("src/main/resources/P. Rojek/indora-1554728381607.csv", sensor);        
-        subory.put("src/main/resources/P. Rojek/indora-1554728410434.csv", sensor);
-        
-        // priečinok Š. Rojek
-        subory.put("src/main/resources/Š. Rojek/indora-1540362934669.csv", sensor);        
-        subory.put("src/main/resources/Š. Rojek/indora-1540363171233.csv", sensor);        
-        subory.put("src/main/resources/Š. Rojek/indora-1540363247042.csv", sensor);        
-        subory.put("src/main/resources/Š. Rojek/indora-1540363314900.csv", sensor);        
-        subory.put("src/main/resources/Š. Rojek/indora-1540363406576.csv", sensor);
+        subory.put("src/main/resources/P. Rojek/indora-1554728410434.csv", sensor);        
         
         // priečinok sk.upjs.indora.sensorsrecorder         
         subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1549541475108.csv", sensor);
@@ -183,6 +181,58 @@ public class DataPreprocessing implements LearningEventListener{
         subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1553610302262.csv", sensor);        
         subory.put("src/main/resources/sk.upjs.indora.sensorsrecorder/indora-1553610326669.csv", sensor); 
         
+        //nacitanie suborov na vytah
+        subory.put("src/main/resources/Vytah/indora-1556082478032.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1556082506828.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1556082533389.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1556082560909.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1556110062122.csv", sensor);
+        
+        subory.put("src/main/resources/Vytah/indora-1556110357233.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1556110929890.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1556110955057.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1556110980942.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1556111007555.csv", sensor);
+        
+        subory.put("src/main/resources/Vytah/indora-1556111051918.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1556111077350.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1556111098861.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1556111125321.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1556111149569.csv", sensor);
+        
+        subory.put("src/main/resources/Vytah/indora-1556111174552.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1556111200762.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1556111227247.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1556111281572.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1556111304040.csv", sensor);
+        
+        subory.put("src/main/resources/Vytah/indora-1556111329156.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1556111352315.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1556111383811.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1556111407332.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1556111433500.csv", sensor);
+        
+        subory.put("src/main/resources/Vytah/indora-1556111459842.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1556111481240.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1556111504747.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1556111530481.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1556111618750.csv", sensor);
+        
+        subory.put("src/main/resources/Vytah/indora-1556111665614.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1549541522778.csv", sensor);        
+        subory.put("src/main/resources/Vytah/indora-1549541647313.csv", sensor);                
+        subory.put("src/main/resources/Vytah/indora-1540546792759.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1540554936805.csv", sensor);
+        
+        subory.put("src/main/resources/Vytah/indora-1554699869876.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1554699898743.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1554699925682.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1554699994623.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1554710761298.csv", sensor);
+        
+        subory.put("src/main/resources/Vytah/indora-1554728410434.csv", sensor);
+        subory.put("src/main/resources/Vytah/indora-1554728381607.csv", sensor);
+        
         celkovyCas = 0;
         
         // vygenerovanie datasetu 
@@ -221,7 +271,7 @@ public class DataPreprocessing implements LearningEventListener{
         */
         
         //spustenie neuronky
-        //(new DataPreprocessing()).run();
+        (new DataPreprocessing()).run();
     }
     
     /*

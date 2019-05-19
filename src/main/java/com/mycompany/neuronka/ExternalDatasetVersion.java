@@ -135,7 +135,7 @@ public class ExternalDatasetVersion implements LearningEventListener{
         subory.put("src/main/resources/Vytah/indora-1554728410434.csv", sensor);
         subory.put("src/main/resources/Vytah/indora-1554728381607.csv", sensor);     
         
-        celkovyCas = 0;
+        //celkovyCas = 0;
         
         // vygenerovanie datasetu pre vytah         
         for (Map.Entry<String, String> entry : subory.entrySet()) {
@@ -146,17 +146,17 @@ public class ExternalDatasetVersion implements LearningEventListener{
         }
         
         
-        System.out.println("Celkovy cas: " + celkovyCas);
-        celkovyCas = 0;
+        //System.out.println("Celkovy cas: " + celkovyCas);
+        //celkovyCas = 0;
         
         //skuska s datasetom z internetu
         processData("src/main/resources/Phones_accelerometer.csv");
         
         //vypis celkoveho casu
-        System.out.println("Celkovy cas: " + celkovyCas);
+        //System.out.println("Celkovy cas: " + celkovyCas);
        
         //spustenie neuronky
-        //(new ExternalDatasetVersion()).run();
+        (new ExternalDatasetVersion()).run();
     }
     public static void processDataVytah(String sensor, String csvFile){
         String line = "";
